@@ -1,0 +1,10 @@
+0806-D falso
+2688-A verdadeiro
+2956-9 verdadeiro
+4231-7 verdadeiro
+5645-7 verdadeiro
+5893-B falso
+8675-F verdadeiro
+9302-C falso
+9718-C verdadeiro
+9923-D verdadeiro

@@ -17,8 +17,10 @@ namespace app
             string line;
             while ((line = inputFile.ReadLine()) != null)
             {
+                // Ignoring blank lines and invalid formats
                 try
                 {
+                    if (line.Length != 4) continue;
                     int lineInt = Convert.ToInt32(line);
                     if (lineInt < 0 || 9999 < lineInt) continue;
                 }
@@ -39,9 +41,28 @@ namespace app
             outputFile = new StreamWriter("matriculasVerificadas.txt");
 
             while ((line = inputFile.ReadLine()) != null)
-            {
-                // calculate digit from partial registration
-                // compare with given digit and write to output file
+            {   
+                var regParts = line.Split(new char[] {'-'});
+                // Ignoring blank lines and invalid formats
+                try
+                {
+                    if (regParts.Length != 2) continue;
+                    if (regParts[0].Length != 4) continue;
+                    if (regParts[1].Length != 1) continue;
+                    int lineInt = Convert.ToInt32(regParts[0]);
+                    if (lineInt < 0 || 9999 < lineInt) continue;
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                
+                var registration = regParts[0];
+                var digit = Convert.ToChar(regParts[1]);
+                if (digit == service.GetDigit(registration))
+                    outputFile.WriteLine(line + " verdadeiro");
+                else
+                    outputFile.WriteLine(line + " falso");
             }
 
             inputFile.Close();
