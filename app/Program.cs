@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using Registration.Services;
 
 namespace app
 {
@@ -6,6 +8,8 @@ namespace app
     {
         static void Main(string[] args)
         {
+            var service = new RegistrationService();
+
             // ---------- Part 1 ----------
             var inputFile = new StreamReader("matriculasSemDV.txt");
             var outputFile = new StreamWriter("matriculasComDV.txt");
@@ -13,8 +17,18 @@ namespace app
             string line;
             while ((line = inputFile.ReadLine()) != null)
             {
-                // calculate digit
-                // write to output file
+                try
+                {
+                    int lineInt = Convert.ToInt32(line);
+                    if (lineInt < 0 || 9999 < lineInt) continue;
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+
+                var digit = service.GetDigit(line);
+                outputFile.WriteLine(line + "-" + digit.ToString());
             }
 
             inputFile.Close();

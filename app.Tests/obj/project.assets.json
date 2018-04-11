@@ -1675,6 +1675,19 @@
         "build": {
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
+      },
+      "app/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Microsoft.NETCore.App": "2.0.0"
+        },
+        "compile": {
+          "bin/placeholder/app.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/app.dll": {}
+        }
       }
     }
   },
@@ -5702,12 +5715,18 @@
         "xunit.runner.visualstudio.2.3.1.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "app/1.0.0": {
+      "type": "project",
+      "path": "../app/app.csproj",
+      "msbuildProject": "../app/app.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.NET.Test.Sdk >= 15.6.0",
       "Microsoft.NETCore.App >= 2.0.0",
+      "app >= 1.0.0",
       "xunit >= 2.3.1",
       "xunit.runner.visualstudio >= 2.3.1"
     ]
@@ -5739,7 +5758,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/thiago6891/Documents/tecgraf/tecgraf-code-challenge/app/app.csproj": {
+              "projectPath": "/home/thiago6891/Documents/tecgraf/tecgraf-code-challenge/app/app.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
