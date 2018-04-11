@@ -6,19 +6,12 @@ namespace Registration.UnitTests.Services
 {
     public class RegistrationService_IsDigitCorrect
     {
-        private readonly RegistrationService _registrationService;
-
-        public RegistrationService_IsDigitCorrect()
-        {
-            _registrationService = new RegistrationService();
-        }
-
         [Theory]
         [InlineData("0000")]
         [InlineData("9992")]
         public void Return0(string value)
         {
-            var result = _registrationService.GetDigit(value);
+            var result = RegistrationService.GetDigit(value);
             Assert.Equal('0', result);
         }
 
@@ -27,7 +20,7 @@ namespace Registration.UnitTests.Services
         [InlineData("9876")]
         public void ReturnE(string value)
         {
-            var result = _registrationService.GetDigit(value);
+            var result = RegistrationService.GetDigit(value);
             Assert.Equal('E', result);
         }
 
@@ -50,7 +43,7 @@ namespace Registration.UnitTests.Services
 
             string registration = 
                 a.ToString() + b.ToString() + c.ToString() + d.ToString();
-            var result = _registrationService.GetDigit(registration);
+            var result = RegistrationService.GetDigit(registration);
             Assert.Equal(expected, result);
         }
 
@@ -63,8 +56,22 @@ namespace Registration.UnitTests.Services
         [InlineData("3000000000")]
         public void ThrowsExceptionGivenInvalidFormat(string value)
         {
-            Action act = () => _registrationService.GetDigit(value);
+            Action act = () => RegistrationService.GetDigit(value);
             Assert.Throws<FormatException>(act);
+        }
+
+        [Fact]
+        public void DigitAlwaysBetween0AndF()
+        {
+            var rnd = new Random();
+            var totalRandomTests = 1000000;
+            for (int i = 0; i < totalRandomTests; i++)
+            {
+                var reg = rnd.Next(0, 10000);
+                var regstr = reg.ToString().PadLeft(4, '0');
+                var digit = RegistrationService.GetDigit(regstr);
+                Assert.True(digit - '0' < 10 || digit - 'A' < 6);
+            }
         }
     }
 }
