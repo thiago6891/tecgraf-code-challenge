@@ -33,13 +33,5 @@ namespace app
             inputFile.Close();
             outputFile.Close();
         }
-
-        static char CalculateDigit(string registration) {
-            foreach (var c in registration)
-            {
-                int n = (int)char.GetNumericValue(c);
-            }
-            return 'a';
-        }
     }
 }
