@@ -70,7 +70,8 @@ namespace Registration.UnitTests.Services
                 var reg = rnd.Next(0, 10000);
                 var regstr = reg.ToString().PadLeft(4, '0');
                 var digit = RegistrationService.GetDigit(regstr);
-                Assert.True(digit - '0' < 10 || digit - 'A' < 6);
+                Assert.True((0 <= digit - '0' && digit - '0' < 10)
+                    || (0 <= digit - 'A' && digit - 'A' < 6));
             }
         }
     }
